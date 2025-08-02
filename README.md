@@ -24,9 +24,9 @@ This repository uses the following GitHub Actions configuration file (`.github/w
 ```yaml
 name: Vercel production deploy
 
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_TOKEN }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+# env:
+#   VERCEL_ORG_ID: ${{ secrets.VERCEL_TOKEN }}
+#   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 on:
   push:
