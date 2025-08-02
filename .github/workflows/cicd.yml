@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Vercel production deploy
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_TOKEN }}
@@ -6,27 +6,26 @@ env:
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "20"
-
+          node-version: 20
+      
       - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+        run: npm install --global vercel@latest
 
-      - name: Deploy app
-        run: npx vercel --token ${{secrets.VERCEL_TOKEN}} --prod --confirm
-        env:
+      - name: deploy to vercel
+        run: npx vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --yes
+        env: 
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_USER_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        
+      
